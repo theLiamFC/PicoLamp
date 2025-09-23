@@ -1,0 +1,2 @@
+SSID = 'Stanford'
+PASSWORD = ''
