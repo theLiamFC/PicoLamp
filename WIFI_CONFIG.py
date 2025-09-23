@@ -1,2 +1,0 @@
-SSID = 'Stanford'
-PASSWORD = ''
