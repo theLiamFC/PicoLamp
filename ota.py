@@ -97,7 +97,7 @@ class OTAUpdater:
         """ Check if updates are available."""
         
         # Connect to Wi-Fi
-        self.connect_wifi()
+        # self.connect_wifi()
 
         print(f'Checking for latest version... on {self.version_url}')
         response = urequests.get(self.version_url)

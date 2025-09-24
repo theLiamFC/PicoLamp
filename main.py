@@ -19,17 +19,17 @@ LAT = 37.4419
 LNG = -122.1430
 
 # OTA Updates
-FIRMWARE_URL = "https://raw.githubusercontent.com/<theLiamFC>/<repo_name>/<branch_name>"
+FIRMWARE_URL = "https://raw.githubusercontent.com/theLiamFC/PicoLamp/"
 
 # Turn on and turn off start times (30 min transition)
 LIGHT_SCHEDULE = [
-    [(7,30),(10,30)], # Monday
-    [(7,30),(10,30)], # Tuesday
-    [(7,30),(10,30)], # Wednesday
-    [(7,30),(10,30)], # Thursday
-    [(8,30),(11,30)], # Friday
-    [(8,30),(11,30)], # Saturday
-    [(8,30),(10,30)]  # Sunday
+    [(7,30),(22,30)], # Monday:     [AM ON, PM OFF]
+    [(7,30),(22,30)], # Tuesday:    [AM ON, PM OFF]
+    [(7,30),(22,30)], # Wednesday:  [AM ON, PM OFF]
+    [(7,30),(22,30)], # Thursday:   [AM ON, PM OFF]
+    [(8,30),(23,30)], # Friday:     [AM ON, PM OFF]
+    [(8,30),(23,30)], # Saturday:   [AM ON, PM OFF]
+    [(8,30),(22,30)]  # Sunday:     [AM ON, PM OFF]
 ]
 
 #################################################################
@@ -144,11 +144,13 @@ try:
                     year, month, day, hour, minute, second, weekday, day_of_year = get_local_time()
 
                     # Update once an hour
-                    if minute == 0 and second == 0:
+                    if hour == 3 and minute == 0 and second == 0:
+                        print("Fetching time, sun schedule, git repo...")
                         ntptime.settime()
                         sunrise, sunset = get_sunrise_sunset_pacific(LAT, LNG)
 
-                        ota_updater = OTAUpdater(SSID, PASSWORD, FIRMWARE_URL, "test.py")
+                        main_ota_updater = OTAUpdater(SSID, PASSWORD, FIRMWARE_URL, "main.py")
+                        ota_updater = OTAUpdater(SSID, PASSWORD, FIRMWARE_URL, "util.py")
                         ota_updater.download_and_install_update_if_available()
 
 
@@ -269,4 +271,5 @@ except KeyboardInterrupt:
     ledPWM.duty_u16(0)
     ledPWM.deinit()
     print("Program terminated")
+
 
