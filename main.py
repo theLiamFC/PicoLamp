@@ -22,8 +22,8 @@ PASSWORD = ''
 # Timing & Fading Logic
 LOOP_MS = 10
 FADE_MINUTES = 30
-SUNSET_ADVANCE_MINS = 30  # Start fade 30m before sunset
-SUNSET_TARGET = 60.0      # Maximum brightness for automation
+SUNSET_ADVANCE_MINS = 60  # Start fade 60m before sunset
+SUNSET_TARGET = 80.0      # Maximum brightness for automation
 MANUAL_STEP = 0.05        # Asymptotic speed for knob feel
 
 # Linear step: 100% / (mins * 60s * 100 samples/s)
@@ -31,7 +31,7 @@ LINEAR_STEP = 100 / (FADE_MINUTES * 60 * (1000 / LOOP_MS))
 
 # Logging Config
 LOG_FILE = "log.txt"
-MAX_LOG_SIZE = 10240  # 10KB recycling threshold
+MAX_LOG_SIZE = 2048  # 2KB recycling threshold
 
 #################################################################
 # LOGGING SYSTEM
@@ -64,7 +64,7 @@ def log_message(message):
 #################################################################
 
 ledPWM = PWM(Pin(11))
-ledPWM.freq(2000)
+ledPWM.freq(500)
 
 Rotary = RotaryIRQ(
     pin_num_clk=2, pin_num_dt=3, 
